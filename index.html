@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="tokyo-night">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0f111a">
+  <title>Flatland — Beautiful, emergent & agentic 2D world simulation</title>
+
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Flatland is an open source 2D artificial life and world simulation inspired by Edwin A. Abbott's 1884 classic. Autonomous multi-agent societies, geometric caste evolution, neural micro-RNN raycasting, and immutable natural laws.">
+  <meta name="keywords" content="Flatland, Open Source, Artificial Life, ALife, World Simulation, Multi-Agent Simulation, Micro-RNN, Autonomous Agents, Long Phan, Edwin Abbott">
+  <link rel="canonical" href="https://longphanmn.github.io/flws-page/">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://longphanmn.github.io/flws-page/">
+  <meta property="og:title" content="Flatland — Beautiful, emergent & agentic 2D world simulation">
+  <meta property="og:description" content="The autonomous 2D ecosystem for the age of agents. Geometry living and evolving under immutable natural laws.">
+  <meta property="og:image" content="assets/images/screenshot_flatland.png">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Flatland — Beautiful, emergent & agentic 2D world simulation">
+  <meta name="twitter:description" content="Open source 2D artificial life simulation inspired by Edwin A. Abbott's Flatland.">
+  <meta name="twitter:image" content="assets/images/screenshot_flatland.png">
+
+  <!-- Favicon & Fonts -->
+  <link rel="icon" type="image/svg+xml" href="assets/images/icon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <div class="pixel-bg"></div>
+  <canvas id="bg-creatures-canvas" class="bg-creatures-canvas"></canvas>
+
+  <!-- Toast for Theme Switcher -->
+  <div id="theme-hint" class="theme-hint">Theme: Tokyo Night (Press T)</div>
+
+  <!-- Top Navigation (Omarchy Style) -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="header-left">
+        <a href="#" class="brand-mark" aria-label="Flatland home">
+          <svg viewBox="0 0 512 512" fill="none">
+            <rect width="512" height="512" rx="96" fill="var(--surface)"/>
+            <polygon points="256,84 384,212 384,340 256,428 128,340 128,212" stroke="var(--brand)" stroke-width="20" stroke-linejoin="round"/>
+            <circle cx="256" cy="256" r="64" stroke="var(--accent-green)" stroke-width="16"/>
+            <line x1="96" y1="400" x2="416" y2="400" stroke="var(--text-secondary)" stroke-width="12"/>
+          </svg>
+          <span>FLATLAND</span>
+        </a>
+
+        <ul class="nav-menu">
+          <li><a href="#castes" class="nav-link">Castes</a></li>
+          <li><a href="#systems" class="nav-link">Systems &amp; Laws</a></li>
+          <li><a href="#sphere" class="nav-link">The Sphere</a></li>
+          <li><a href="#gallery" class="nav-link">Screenshots</a></li>
+          <li><a href="#quickstart" class="nav-link">Quickstart</a></li>
+          <li><a href="wiki/" class="nav-link">Wiki ↗</a></li>
+          <li><a href="https://longphanmn.github.io/flws-web/docs/" target="_blank" rel="noopener noreferrer" class="nav-link">API Docs ↗</a></li>
+          <li><a href="health/" class="nav-link">Health ↗</a></li>
+        </ul>
+      </div>
+
+      <div class="header-right">
+        <!-- Theme Toggle Button (Key 'T') -->
+        <button type="button" id="theme-toggle-btn" class="icon-btn" aria-label="Cycle Website Theme (Press T)" title="Cycle theme (Press T)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+            <circle cx="12" cy="12" r="4"/>
+          </svg>
+        </button>
+
+        <!-- GitHub Repo -->
+        <a href="https://github.com/longphanmn/flws" target="_blank" rel="noopener noreferrer" class="icon-btn" aria-label="GitHub Repository" title="Star on GitHub">
+          <svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor">
+            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+          </svg>
+        </a>
+
+        <!-- Launch Live Demo CTA -->
+        <a href="https://longphanmn.github.io/flws-web/" target="_blank" rel="noopener noreferrer" class="btn-primary">
+          <span class="pulse-dot"></span>
+          Live Demo
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section (Omarchy Center Retro Style) -->
+  <section class="hero">
+    <div class="container">
+      <a href="https://github.com/longphanmn/flws" target="_blank" rel="noopener noreferrer" class="announcement-pill">
+        <span class="pill-badge">MIT LICENSE</span>
+        <span>Open Source World Simulation on GitHub &rarr;</span>
+      </a>
+
+      <!-- Big Pixel Wordmark Header -->
+      <div class="wordmark-wrap">
+        <div class="pixel-wordmark">FLATLAND</div>
+      </div>
+
+      <h1 class="hero-tagline">
+        Beautiful, emergent &amp; agentic 2D world simulation
+      </h1>
+
+      <p class="hero-desc">
+        The autonomous artificial life ecosystem for the age of agents. Watch geometry live, build, and evolve under immutable natural laws. Developed from Edwin A. Abbott's 1884 classic.
+      </p>
+
+      <!-- Quick Clone Terminal Box -->
+      <div class="terminal-box" id="hero-cmd">
+        <div class="terminal-cmd">
+          <span class="terminal-prompt">$</span>
+          <span>git clone https://github.com/longphanmn/flws.git &amp;&amp; cd flws &amp;&amp; ./run.sh</span>
+        </div>
+        <button class="copy-btn" data-copy="git clone https://github.com/longphanmn/flws.git && cd flws && ./run.sh">Copy</button>
+      </div>
+
+      <!-- Hero Viewport Frame: Live Simulation Screenshot -->
+      <div class="viewport-frame" data-lightbox="assets/images/screenshot_flatland.png">
+        <div class="viewport-bar">
+          <div class="window-dots">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <div class="viewport-url">longphanmn.github.io/flws-web · Day 1044 (Tick 1,251,932 · 481 Alive · 11 Clans)</div>
+          <div class="viewport-status">
+            <span class="pulse-dot"></span>
+            <span>Live Telemetry</span>
+          </div>
+        </div>
+
+        <div class="viewport-canvas-wrap" title="Click to view full 1920x1080 resolution">
+          <img src="assets/images/screenshot_flatland.png" alt="Flatland Live World Simulation">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Open Source Ethos & Design Philosophy -->
+  <section class="section" id="overview">
+    <div class="container">
+      <div class="section-head">
+        <div class="section-kicker">Core Principles</div>
+        <h2 class="section-title">Built for Hackability &amp; Emergence</h2>
+        <p class="section-desc">
+          Flatland is an open playground for multi-agent dynamics, artificial life research, and mathematical modeling.
+        </p>
+      </div>
+
+      <div class="grid-3">
+        <div class="feature-box">
+          <div class="feature-tag">01 / GEOMETRIC REALITY</div>
+          <h3 class="feature-title">Developed from Abbott</h3>
+          <p class="feature-text">
+            Embraces Abbott's core 1884 premise—2D spatial constraints, vertex hierarchies, and generational ascendance—evolving into an authentic autonomous ALife ecosystem.
+          </p>
+        </div>
+
+        <div class="feature-box">
+          <div class="feature-tag">02 / NATURAL LAWS</div>
+          <h3 class="feature-title">Laws Over Fates</h3>
+          <p class="feature-text">
+            God (The Sphere) governs exclusively through universal laws: metabolism, density damping, and seasonal climate cycles. Zero hand of God touches individual fates.
+          </p>
+        </div>
+
+        <div class="feature-box">
+          <div class="feature-tag">03 / AGENTIC LIVING</div>
+          <h3 class="feature-title">Oral Lore &amp; Castes</h3>
+          <p class="feature-text">
+            Organisms form clans, construct houses, stockpile granaries, and elders transmit highest skill masteries to sleeping youth through indoor oral lore.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Geometric Caste Hierarchy Explorer -->
+  <section class="section" id="castes">
+    <div class="container">
+      <div class="section-head">
+        <div class="section-kicker">Morphology &amp; Biomechanics</div>
+        <h2 class="section-title">Geometric Caste Hierarchy</h2>
+        <p class="section-desc">
+          Physical form determines societal role. Side counts govern perception and longevity, while razor apex angles dictate kinetic piercing damage.
+        </p>
+      </div>
+
+      <div class="caste-panel">
+        <div class="caste-list">
+          <button class="caste-btn active" data-caste="soldier">
+            <span class="caste-glyph">▲</span>
+            <div>
+              <span class="caste-name">Isosceles Soldiers</span>
+              <span class="caste-sub">Razor Apex · Phalanxes</span>
+            </div>
+          </button>
+
+          <button class="caste-btn" data-caste="woman">
+            <span class="caste-glyph">—</span>
+            <div>
+              <span class="caste-name">Women (Straight Lines)</span>
+              <span class="caste-sub">Invisible Edge · Needle Impalement</span>
+            </div>
+          </button>
+
+          <button class="caste-btn" data-caste="artisan">
+            <span class="caste-glyph">△</span>
+            <div>
+              <span class="caste-name">Equilateral Artisans</span>
+              <span class="caste-sub">60° Uniform · Builders</span>
+            </div>
+          </button>
+
+          <button class="caste-btn" data-caste="noble">
+            <span class="caste-glyph">■</span>
+            <div>
+              <span class="caste-name">Nobles (Squares/Penta)</span>
+              <span class="caste-sub">House Lords · Governors</span>
+            </div>
+          </button>
+
+          <button class="caste-btn" data-caste="priest">
+            <span class="caste-glyph">●</span>
+            <div>
+              <span class="caste-name">Priests (High Polygons)</span>
+              <span class="caste-sub">Circles · Divine Epiphanies</span>
+            </div>
+          </button>
+        </div>
+
+        <div class="caste-card">
+          <div class="caste-shape">
+            <div id="caste-svg-glyph">
+              <svg viewBox="0 0 100 100" width="120" height="120">
+                <polygon points="84,50 16,34 16,66" fill="rgba(248, 113, 113, 0.2)" stroke="#f87171" stroke-width="2.5" stroke-linejoin="round"/>
+                <circle cx="84" cy="50" r="3" fill="#ffffff"/>
+              </svg>
+            </div>
+            <span class="caste-math" id="caste-math-badge">θ_min ∈ [10°, 59.5°] · Razor Apex</span>
+          </div>
+
+          <div>
+            <h3 class="caste-heading" id="caste-heading">Isosceles Triangles (Soldiers)</h3>
+            <div class="caste-role" id="caste-role">Vanguard · Clan Phalanx · Acute Kinetic Piercing</div>
+            <p class="caste-bio" id="caste-bio">
+              With two long sides and an acute apex, Isosceles soldiers are natural combatants. Over generations, peaceful lineages undergo generational creep (+0.5° per generation) until promoting to regular Equilateral Artisans.
+            </p>
+
+            <div class="caste-stats">
+              <div class="caste-stat-pill">
+                <div class="caste-stat-lbl">Vertices (K)</div>
+                <div class="caste-stat-val" id="metric-sides">3 (Isosceles)</div>
+              </div>
+              <div class="caste-stat-pill">
+                <div class="caste-stat-lbl">Apex Angle</div>
+                <div class="caste-stat-val" id="metric-apex">10° – 59.5°</div>
+              </div>
+              <div class="caste-stat-pill">
+                <div class="caste-stat-lbl">Trait Modifier</div>
+                <div class="caste-stat-val" id="metric-life">+15% Stamina</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Natural Laws & Evolutionary Systems Architecture (god-laws.md) -->
+  <section class="section" id="systems">
+    <div class="container">
+      <div class="section-head">
+        <div class="section-kicker">Engineered Ecosystem</div>
+        <h2 class="section-title">Natural Laws &amp; Evolutionary Systems</h2>
+        <p class="section-desc">
+          Flatland is governed by mathematical principles, recurrent neuroevolution, and biological homeostasis calibrated from Spaceland.
+        </p>
+      </div>
+
+      <div class="systems-grid">
+        <!-- 01: Micro-Elman RNN Neural Architecture -->
+        <div class="system-card">
+          <div>
+            <div class="system-card-top">
+              <span class="system-card-tag">01 / NEURAL CONTROLLER</span>
+              <span class="system-card-badge">15 Hz Inference</span>
+            </div>
+            <h3 class="system-card-title">Micro-Elman RNN Architecture</h3>
+            <p class="system-card-desc">
+              Every organism is powered by a 295-parameter evolvable neural network (<span class="code-inline">16 &rarr; 12 &rarr; 7</span>). 16 sensory raycasting inputs process obstacle distance, food nutrient scent gradients, kin presence, predator proximity, and internal metabolic starvation ratios. 12 recurrent hidden units provide continuous temporal memory across ticks, enabling complex kiting, forage navigation, and buddy-trust bonding.
+            </p>
+          </div>
+          <div class="system-pills">
+            <span class="system-pill accent">295 Evolvable Weights</span>
+            <span class="system-pill">16 Ray Sensors</span>
+            <span class="system-pill">12 Recurrent Memory Units</span>
+            <span class="system-pill">7 Motor Outputs</span>
+            <span class="system-pill green">OpenMP Vectorized</span>
+          </div>
+        </div>
+
+        <!-- 02: Polar Morphology & Evolutionary Annealing -->
+        <div class="system-card">
+          <div>
+            <div class="system-card-top">
+              <span class="system-card-tag">02 / MORPHOLOGY &amp; ANNEALING</span>
+              <span class="system-card-badge">&lambda;(g) &rarr; 0</span>
+            </div>
+            <h3 class="system-card-title">Polar Genomes &amp; Biomechanical Trait Baking</h3>
+            <p class="system-card-desc">
+              Organisms possess polar coordinate genomes <span class="code-inline">(r_i, &phi;_i)</span> with vertex counts <span class="code-inline">K &isin; [3, 64]</span>. Green-Gauss and Shoelace formulas dynamically bake rotational inertia (<span class="code-inline">I_zz</span>), area, razor apex angle (<span class="code-inline">&theta;_min</span>), and kinetic pierce multipliers. Evolutionary Annealing transitions from strict Abbott orthodoxy (<span class="code-inline">&lambda; = 1.0</span>) over 250 generations down to <span class="code-inline">&lambda; &rarr; 0</span>, unlocking unconstrained speciation, veteran battle scars, and ancestral starburst coronas.
+            </p>
+          </div>
+          <div class="system-pills">
+            <span class="system-pill accent">Shoelace Area &amp; Green-Gauss I_zz</span>
+            <span class="system-pill">Razor Apex Pierce (&theta;_min)</span>
+            <span class="system-pill">250-Gen Annealing Decay</span>
+            <span class="system-pill green">Battle Veteran Scars</span>
+            <span class="system-pill">Gen 50+ Starburst Coronas</span>
+          </div>
+        </div>
+
+        <!-- 03: Density Soft-Cap Damping & Extinction Safeguards -->
+        <div class="system-card">
+          <div>
+            <div class="system-card-top">
+              <span class="system-card-tag">03 / DYNAMIC HOMEOSTASIS</span>
+              <span class="system-card-badge">&xi; Soft-Cap &middot; &eta; Safeguards</span>
+            </div>
+            <h3 class="system-card-title">Density Soft-Cap Damping (&xi;) &amp; Safeguards (&eta;)</h3>
+            <p class="system-card-desc">
+              Ecosystem equilibrium is maintained through dual automated feedback forces. When approaching carrying capacity (<span class="code-inline">K_cap = 400</span>, ceiling 500), Density Soft-Cap Damping (&xi;) activates quadratic birth suppression, +35% crowding metabolic burn, and resource throttling. When population drops to famine thresholds (<span class="code-inline">K_safe = 0.3 &times; K_cap</span>), Extinction Safeguards (&eta;) grant emergency relief and trigger a divine Genesis Miracle at critical floor <span class="code-inline">K_crit = 12</span> to reseed the world.
+            </p>
+          </div>
+          <div class="system-pills">
+            <span class="system-pill red">&xi; Damping Steepness (6.0)</span>
+            <span class="system-pill red">+35% Crowding Strain</span>
+            <span class="system-pill green">&eta; Emergency Relief (0.3&times;)</span>
+            <span class="system-pill green">Genesis Miracle Floor (12)</span>
+            <span class="system-pill">Euthanasia Mercy</span>
+          </div>
+        </div>
+
+        <!-- 04: Cognitive Agency, Living Lore & Sacred Avatars -->
+        <div class="system-card">
+          <div>
+            <div class="system-card-top">
+              <span class="system-card-tag">04 / SOCIAL DYNAMICS</span>
+              <span class="system-card-badge">Utility AI &middot; Lore</span>
+            </div>
+            <h3 class="system-card-title">Cognitive Agency, Oral Lore &amp; Clan Geopolitics</h3>
+            <p class="system-card-desc">
+              Multi-objective utility AI replaces hard-coded trees, scoring actions against survival, duty, and heritable traits (brave, cautious, altruistic, builder). Organisms maintain spatial mental waypoints (<span class="code-inline">home</span>, <span class="code-inline">rich_food</span>, <span class="code-inline">danger</span>). Resting elders transmit highest skill masteries (🌾 Farming, ⚔️ Combat, 🦴 Foraging, 🌿 Healing) to sleeping youth through indoor oral lore, while rival clans rally behind Sacred Avatars, wage Casus Belli wars, or barter via trade caravans.
+            </p>
+          </div>
+          <div class="system-pills">
+            <span class="system-pill accent">Multi-Objective Utility AI</span>
+            <span class="system-pill">Spatial Mental Maps</span>
+            <span class="system-pill">Indoor Elder Oral Lore</span>
+            <span class="system-pill">8 Sacred Avatars</span>
+            <span class="system-pill green">Casus Belli &amp; Trade Caravans</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- The Sphere Presets Explorer -->
+  <section class="section" id="sphere">
+    <div class="container">
+      <div class="section-head">
+        <div class="section-kicker">God Laws &amp; Profiles</div>
+        <h2 class="section-title">The Sphere World Presets</h2>
+        <p class="section-desc">
+          Universal natural laws calibrated in Spaceland. Inspect how carrying capacity, metabolism, and food abundance shift across presets.
+        </p>
+      </div>
+
+      <div class="presets-grid">
+        <div class="preset-chip active" data-preset="balance">
+          <div class="preset-top">
+            <span class="preset-title">Balance</span>
+            <span class="preset-tag">Default</span>
+          </div>
+          <div class="preset-desc-short">Goldilocks harmony for 200–350 inhabitants.</div>
+        </div>
+
+        <div class="preset-chip" data-preset="sustainable">
+          <div class="preset-top">
+            <span class="preset-title">Sustainable</span>
+            <span class="preset-tag">Peace</span>
+          </div>
+          <div class="preset-desc-short">1,000-day prosperous peace and rich granaries.</div>
+        </div>
+
+        <div class="preset-chip" data-preset="theocracy">
+          <div class="preset-top">
+            <span class="preset-title">Theocracy</span>
+            <span class="preset-tag">Spaceland</span>
+          </div>
+          <div class="preset-desc-short">Divine avatars, glowing temples, and holy synods.</div>
+        </div>
+
+        <div class="preset-chip" data-preset="warlords">
+          <div class="preset-top">
+            <span class="preset-title">Warlords</span>
+            <span class="preset-tag">Combat</span>
+          </div>
+          <div class="preset-desc-short">Clash of clans, granary raids, and spear phalanxes.</div>
+        </div>
+
+        <div class="preset-chip" data-preset="chaos">
+          <div class="preset-top">
+            <span class="preset-title">Chaos</span>
+            <span class="preset-tag">Extreme</span>
+          </div>
+          <div class="preset-desc-short">Wildfires, plagues, earthquakes, and predators.</div>
+        </div>
+
+        <div class="preset-chip" data-preset="extinction">
+          <div class="preset-top">
+            <span class="preset-title">Extinction</span>
+            <span class="preset-tag">Collapse</span>
+          </div>
+          <div class="preset-desc-short">Famine (120 food) and harsh winter tests.</div>
+        </div>
+
+        <div class="preset-chip" data-preset="boom">
+          <div class="preset-top">
+            <span class="preset-title">Boom</span>
+            <span class="preset-tag">Urban</span>
+          </div>
+          <div class="preset-desc-short">High reproduction and 800 carrying capacity.</div>
+        </div>
+      </div>
+
+      <div class="preset-dashboard">
+        <div class="preset-dash-title" id="dash-preset-title">Balance (Default Goldilocks)</div>
+        <p class="preset-dash-desc" id="dash-preset-desc">
+          Goldilocks harmony tuned for 200–350 inhabitants with carrying capacity 400, gentle wars, rare predation, agriculture, soft-cap damping (&xi;), and flourishing multi-generational clans.
+        </p>
+
+        <div class="dash-meters">
+          <div class="dash-meter">
+            <div class="dash-meter-lbl">
+              <span>Population Target</span>
+              <span class="dash-meter-val" id="val-pop">200 – 350</span>
+            </div>
+            <div class="dash-track">
+              <div class="dash-fill" id="bar-pop" style="width: 50%;"></div>
+            </div>
+          </div>
+
+          <div class="dash-meter">
+            <div class="dash-meter-lbl">
+              <span>Food Abundance</span>
+              <span class="dash-meter-val" id="val-food">380 Units</span>
+            </div>
+            <div class="dash-track">
+              <div class="dash-fill" id="bar-food" style="width: 55%;"></div>
+            </div>
+          </div>
+
+          <div class="dash-meter">
+            <div class="dash-meter-lbl">
+              <span>Carrying Capacity</span>
+              <span class="dash-meter-val" id="val-cap">400</span>
+            </div>
+            <div class="dash-track">
+              <div class="dash-fill" id="bar-cap" style="width: 50%;"></div>
+            </div>
+          </div>
+
+          <div class="dash-meter">
+            <div class="dash-meter-lbl">
+              <span>Risk &amp; Volatility</span>
+              <span class="dash-meter-val" id="val-risk">Low</span>
+            </div>
+            <div class="dash-track">
+              <div class="dash-fill" id="bar-risk" style="width: 20%;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Screenshots Gallery Section -->
+  <section class="section" id="gallery">
+    <div class="container">
+      <div class="section-head">
+        <div class="section-kicker">Operational Dossier</div>
+        <h2 class="section-title">Multi-Interface Live Captures</h2>
+        <p class="section-desc">
+          High-resolution captures across the Web Client, The Sphere God Panel, Terminal TUI, and Mobile viewports. Click any capture to view in full resolution.
+        </p>
+      </div>
+
+      <!-- Featured Panoramic View -->
+      <div class="gallery-featured">
+        <div class="gallery-card" data-lightbox="assets/images/screenshot_flatland.png">
+          <img src="assets/images/screenshot_flatland.png" alt="Panoramic World View">
+          <div class="gallery-card-foot">
+            <span><span class="gallery-badge live">Live World</span> Day 1044 Panoramic View · 481 Inhabitants · 11 Emergent Clans</span>
+            <span>1920&times;1080 (Click to zoom)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Two Flagship Consoles: God Panel & Terminal TUI -->
+      <div class="gallery-grid">
+        <div class="gallery-card" data-lightbox="assets/images/screenshot_god_panel.png">
+          <img src="assets/images/screenshot_god_panel.png" alt="The Sphere God Panel Control Deck">
+          <div class="gallery-card-foot">
+            <span><span class="gallery-badge god">God Panel</span> The Sphere Control Deck (13 Macro Domains &amp; Presets)</span>
+            <span>1912&times;996</span>
+          </div>
+        </div>
+
+        <div class="gallery-card" data-lightbox="assets/images/screenshot_tui.png">
+          <img src="assets/images/screenshot_tui.png" alt="Terminal TUI Dashboard">
+          <div class="gallery-card-foot">
+            <span><span class="gallery-badge tui">Terminal TUI</span> Textual Client with ASCII/Block Viewport &amp; Chronicle</span>
+            <span>./run.sh tui</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Three Detail Views: Mobile Touch, Telemetry HUD & Settlements -->
+      <div class="gallery-trio">
+        <div class="gallery-card mobile-card" data-lightbox="assets/images/screenshot_mobile.png">
+          <img src="assets/images/screenshot_mobile.png" alt="Mobile Responsive Touch Client">
+          <div class="gallery-card-foot">
+            <span><span class="gallery-badge live">Mobile</span> Touch Responsive UI</span>
+            <span>430&times;932</span>
+          </div>
+        </div>
+
+        <div class="gallery-card" data-lightbox="assets/images/screenshot_telemetry.png">
+          <img src="assets/images/screenshot_telemetry.png" alt="HUD Telemetry Panel">
+          <div class="gallery-card-foot">
+            <span>Demographic Vitals &amp; Mortality HUD</span>
+            <span>Live Telemetry</span>
+          </div>
+        </div>
+
+        <div class="gallery-card" data-lightbox="assets/images/screenshot_crop.png">
+          <img src="assets/images/screenshot_crop.png" alt="Macro Clan Settlements">
+          <div class="gallery-card-foot">
+            <span>Settlement Enclaves &amp; River Crossings</span>
+            <span>Territorial Borders</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quickstart & Stack Setup -->
+  <section class="section" id="quickstart">
+    <div class="container">
+      <div class="section-head">
+        <div class="section-kicker">Quickstart &amp; Deployment</div>
+        <h2 class="section-title">Clone &amp; Run in 60 Seconds</h2>
+        <p class="section-desc">
+          FastAPI backend, native C OpenMP engine, WebSockets streaming, and React 18 Canvas rendering.
+        </p>
+      </div>
+
+      <div class="quickstart-grid">
+        <!-- Native Run -->
+        <div class="code-window">
+          <div class="code-window-bar">
+            <span>Local Shell (Linux / macOS / Windows WSL)</span>
+            <button class="copy-btn" data-copy="git clone https://github.com/longphanmn/flws.git&#10;cd flws&#10;./run.sh">Copy</button>
+          </div>
+          <div class="code-body">
+            <span class="cmt"># Clone the open source repository</span><br>
+            <span class="cmd">git clone</span> https://github.com/longphanmn/flws.git<br>
+            <span class="cmd">cd</span> flws<br><br>
+            <span class="cmt"># Boots FastAPI backend &amp; Vite React frontend</span><br>
+            <span class="cmd">./run.sh</span><br><br>
+            <span class="hl">&gt;&gt; Ready at http://localhost:5173</span>
+          </div>
+        </div>
+
+        <!-- Docker Compose -->
+        <div class="code-window">
+          <div class="code-window-bar">
+            <span>Docker Compose</span>
+            <button class="copy-btn" data-copy="docker compose up -d">Copy</button>
+          </div>
+          <div class="code-body">
+            <span class="cmt"># Launch complete containerized stack</span><br>
+            <span class="cmd">docker compose</span> up -d<br><br>
+            <span class="cmt"># Inspect simulation logs</span><br>
+            <span class="cmd">docker compose</span> logs -f backend<br><br>
+            <span class="hl">&gt;&gt; WebSockets listening on :8000</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ambient Sound Player Badge (Omarchy Style) -->
+  <div class="omarchy-audio-badge" id="audio-badge" title="Toggle ambient drone sound">
+    <div class="sound-bars">
+      <span class="sound-bar"></span>
+      <span class="sound-bar"></span>
+      <span class="sound-bar"></span>
+      <span class="sound-bar"></span>
+    </div>
+    <span id="audio-text">Sound off</span>
+  </div>
+
+  <!-- Minimal Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <a href="#" class="brand-mark">
+          <svg viewBox="0 0 512 512" fill="none" style="width: 18px; height: 18px;">
+            <polygon points="256,84 384,212 384,340 256,428 128,340 128,212" stroke="var(--brand)" stroke-width="28" stroke-linejoin="round"/>
+            <circle cx="256" cy="256" r="64" stroke="var(--accent-green)" stroke-width="24"/>
+          </svg>
+          <span>Flatland</span>
+        </a>
+
+        <ul class="footer-links">
+          <li><a href="https://longphanmn.github.io/flws-web/" target="_blank" rel="noopener noreferrer">Live Demo</a></li>
+          <li><a href="wiki/" target="_blank" rel="noopener noreferrer">Living Wiki</a></li>
+          <li><a href="https://longphanmn.github.io/flws-web/docs/" target="_blank" rel="noopener noreferrer">API Docs</a></li>
+          <li><a href="health/" target="_blank" rel="noopener noreferrer">Engine Health</a></li>
+          <li><a href="https://github.com/longphanmn/flws" target="_blank" rel="noopener noreferrer">GitHub (Engine)</a></li>
+          <li><a href="https://github.com/longphanmn/flws-web" target="_blank" rel="noopener noreferrer">GitHub (Web UI)</a></li>
+          <li><a href="https://github.com/longphanmn/flws/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">MIT License</a></li>
+          <li><a href="https://minhnhan.in/?lang=en" target="_blank" rel="noopener noreferrer">Author</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-credit">
+        An open source project created by <a href="https://minhnhan.in/?lang=en" target="_blank" rel="noopener noreferrer">Long Phan</a> (<a href="mailto:long@minhnhan.in">long@minhnhan.in</a>). Developed from the concepts of Edwin A. Abbott's 1884 classic. Built with OpenCode and Antigravity.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Lightbox Modal -->
+  <div class="modal" id="lightbox-modal">
+    <div class="modal-content">
+      <button class="modal-close" aria-label="Close Lightbox">&times;</button>
+      <img src="" alt="Enlarged Simulation Screenshot" id="lightbox-img">
+    </div>
+  </div>
+
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
