@@ -41,7 +41,7 @@
 
   <!-- Top Navigation (Omarchy Style) -->
   <header class="site-header">
-    <div class="container header-inner">
+    <div class="header-inner">
       <div class="header-left">
         <a href="#" class="brand-mark" aria-label="Flatland home">
           <svg viewBox="0 0 512 512" fill="none">
@@ -53,14 +53,14 @@
           <span>FLATLAND</span>
         </a>
 
-        <ul class="nav-menu">
+        <ul class="nav-menu" id="nav-menu">
           <li><a href="#castes" class="nav-link">Castes</a></li>
           <li><a href="#systems" class="nav-link">Systems &amp; Laws</a></li>
           <li><a href="#sphere" class="nav-link">The Sphere</a></li>
           <li><a href="#gallery" class="nav-link">Screenshots</a></li>
           <li><a href="#quickstart" class="nav-link">Quickstart</a></li>
           <li><a href="wiki/" class="nav-link">Wiki ↗</a></li>
-          <li><a href="https://longphanmn.github.io/flws-web/docs/" target="_blank" rel="noopener noreferrer" class="nav-link">API Docs ↗</a></li>
+          <li><a href="https://longphanmn.github.io/flws-web/docs/" target="_blank" rel="noopener noreferrer" class="nav-link">Docs ↗</a></li>
           <li><a href="health/" class="nav-link">Health ↗</a></li>
         </ul>
       </div>
@@ -82,11 +82,38 @@
         </a>
 
         <!-- Launch Live Demo CTA -->
-        <a href="https://longphanmn.github.io/flws-web/" target="_blank" rel="noopener noreferrer" class="btn-primary">
+        <a href="https://longphanmn.github.io/flws-web/" target="_blank" rel="noopener noreferrer" class="btn-primary" id="header-demo-cta">
           <span class="pulse-dot"></span>
-          Live Demo
+          <span class="demo-full-text">Live Demo</span>
+          <span class="demo-short-text">Demo</span>
         </a>
+
+        <!-- Mobile Menu Toggle Button -->
+        <button type="button" id="mobile-menu-btn" class="icon-btn mobile-menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false" title="Toggle Navigation">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12" class="hamburger-line-mid"></line>
+            <line x1="3" y1="6" x2="21" y2="6" class="hamburger-line-top"></line>
+            <line x1="3" y1="18" x2="21" y2="18" class="hamburger-line-bot"></line>
+          </svg>
+        </button>
       </div>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div class="mobile-nav-drawer" id="mobile-nav-drawer" aria-hidden="true">
+      <ul class="mobile-nav-list">
+        <li><a href="#castes" class="mobile-nav-link">Castes</a></li>
+        <li><a href="#systems" class="mobile-nav-link">Systems &amp; Laws</a></li>
+        <li><a href="#sphere" class="mobile-nav-link">The Sphere</a></li>
+        <li><a href="#gallery" class="mobile-nav-link">Screenshots</a></li>
+        <li><a href="#quickstart" class="mobile-nav-link">Quickstart</a></li>
+        <li class="mobile-nav-divider"></li>
+        <li><a href="wiki/" class="mobile-nav-link">Living Wiki ↗</a></li>
+        <li><a href="https://longphanmn.github.io/flws-web/docs/" target="_blank" rel="noopener noreferrer" class="mobile-nav-link">API Docs ↗</a></li>
+        <li><a href="health/" class="mobile-nav-link">Health Status ↗</a></li>
+        <li><a href="https://github.com/longphanmn/flws" target="_blank" rel="noopener noreferrer" class="mobile-nav-link">GitHub (Engine) ↗</a></li>
+        <li><a href="https://github.com/longphanmn/flws-web" target="_blank" rel="noopener noreferrer" class="mobile-nav-link">GitHub (Web UI) ↗</a></li>
+      </ul>
     </div>
   </header>
 

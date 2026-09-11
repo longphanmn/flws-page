@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initPresetExplorer();
   initCopyButtons();
   initLightbox();
+  initMobileMenu();
 });
 
 /* ==========================================================================
@@ -611,3 +612,46 @@ function initLightbox() {
   modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.remove('open'); });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') modal.classList.remove('open'); });
 }
+
+/* ==========================================================================
+   Mobile Navigation Drawer
+   ========================================================================== */
+function initMobileMenu() {
+  const menuBtn = document.getElementById('mobile-menu-btn');
+  const drawer = document.getElementById('mobile-nav-drawer');
+  if (!menuBtn || !drawer) return;
+
+  function toggleMenu() {
+    const isOpen = drawer.classList.toggle('open');
+    menuBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    drawer.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
+  }
+
+  function closeMenu() {
+    drawer.classList.remove('open');
+    menuBtn.setAttribute('aria-expanded', 'false');
+    drawer.setAttribute('aria-hidden', 'true');
+  }
+
+  menuBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    toggleMenu();
+  });
+
+  drawer.querySelectorAll('.mobile-nav-link').forEach(link => {
+    link.addEventListener('click', closeMenu);
+  });
+
+  document.addEventListener('click', (e) => {
+    if (drawer.classList.contains('open') && !drawer.contains(e.target) && e.target !== menuBtn) {
+      closeMenu();
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && drawer.classList.contains('open')) {
+      closeMenu();
+    }
+  });
+}
+
