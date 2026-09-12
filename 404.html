@@ -42,23 +42,22 @@
         repoPrefix = '/flatland';
       }
 
-      var backendBase = 'https://world.minhnhan.in';
-      var demoBase = 'https://longphanmn.github.io/flws-web';
+      var webBase = 'https://longphanmn.github.io/flws-web';
 
       var target = origin + repoPrefix + '/';
 
       if (path.indexOf('god-laws.md') !== -1) {
-        target = backendBase + '/docs/god-laws.md' + hash;
+        target = webBase + '/docs/god-laws.md' + hash;
       } else if (path.indexOf('wiki') !== -1) {
-        target = backendBase + '/wiki' + search + hash;
+        target = webBase + '/wiki/' + search + hash;
       } else if (path.indexOf('docs') !== -1) {
-        target = backendBase + '/docs' + search;
+        target = webBase + '/docs/' + search;
       } else if (path.indexOf('openapi.json') !== -1) {
-        target = backendBase + '/openapi.json';
+        target = webBase + '/openapi.json';
       } else if (path.indexOf('health') !== -1) {
-        target = backendBase + '/health' + search;
+        target = webBase + '/health/' + search;
       } else if (path.indexOf('demo') !== -1 || path.indexOf('app') !== -1 || path.indexOf('sim') !== -1) {
-        target = demoBase + '/' + search + hash;
+        target = webBase + '/' + search + hash;
       }
 
       window.location.replace(target);
