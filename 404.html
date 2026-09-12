@@ -42,20 +42,23 @@
         repoPrefix = '/flatland';
       }
 
+      var backendBase = 'https://world.minhnhan.in';
+      var demoBase = 'https://longphanmn.github.io/flws-web';
+
       var target = origin + repoPrefix + '/';
 
       if (path.indexOf('god-laws.md') !== -1) {
-        target = origin + repoPrefix + '/docs/god-laws.md' + hash;
+        target = backendBase + '/docs/god-laws.md' + hash;
       } else if (path.indexOf('wiki') !== -1) {
-        target = origin + repoPrefix + '/wiki/' + search + hash;
+        target = backendBase + '/wiki' + search + hash;
       } else if (path.indexOf('docs') !== -1) {
-        target = origin + repoPrefix + '/docs/' + search;
+        target = backendBase + '/docs' + search;
       } else if (path.indexOf('openapi.json') !== -1) {
-        target = origin + repoPrefix + '/openapi.json';
+        target = backendBase + '/openapi.json';
       } else if (path.indexOf('health') !== -1) {
-        target = origin + repoPrefix + '/health/' + search;
+        target = backendBase + '/health' + search;
       } else if (path.indexOf('demo') !== -1 || path.indexOf('app') !== -1 || path.indexOf('sim') !== -1) {
-        target = 'https://longphanmn.github.io/flws-web/' + search + hash;
+        target = demoBase + '/' + search + hash;
       }
 
       window.location.replace(target);

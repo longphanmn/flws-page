@@ -1,6 +1,6 @@
 # Flatland Showcase & Landing Page (`flws-page`)
 
-> **The Showcase Landing Page, Living Wiki, and Architecture Portal for Flatland.**  
+> **The Official Landing Page & Marketing Showcase for Flatland.**  
 > Hosted on GitHub Pages at: [https://longphanmn.github.io/flws-page/](https://longphanmn.github.io/flws-page/)
 
 ---
@@ -9,12 +9,13 @@
 
 Flatland is partitioned into three decoupled repositories:
 
-1. **Simulation Engine (`flws`)**: High-throughput FastAPI simulation kernel, OpenMP batch raycaster, immutable laws, and SQLite event ledger.  
-   Repository: [longphanmn/flws](https://github.com/longphanmn/flws)
-2. **Web Frontend (`flws-web`)**: React 18 + TypeScript + Canvas/WebGL HUD client with independent GitHub Pages deployment.  
+1. **Simulation Engine (`flws`)**: High-throughput FastAPI simulation kernel, OpenMP batch raycaster, immutable laws, SQLite ledger, live API docs (`/docs`), OpenAPI schema (`/openapi.json`), engine health telemetry (`/health`), and server-rendered wiki (`/wiki`).  
+   Repository: [longphanmn/flws](https://github.com/longphanmn/flws)  
+   Live Backend: [https://world.minhnhan.in](https://world.minhnhan.in)
+2. **Web Frontend (`flws-web`)**: React 18 + TypeScript + Canvas/WebGL simulation client with independent GitHub Pages deployment.  
    Repository: [longphanmn/flws-web](https://github.com/longphanmn/flws-web)  
    Live App: [https://longphanmn.github.io/flws-web/](https://longphanmn.github.io/flws-web/)
-3. **Landing Page (`flws-page`)**: Marketing showcase, multi-lingual living wiki, engine health monitor, and architectural documentation.  
+3. **Landing Page (`flws-page`)**: Marketing showcase, lore introduction, quickstart guide, screenshots gallery, and ecosystem navigation portal.  
    Live Showcase: [https://longphanmn.github.io/flws-page/](https://longphanmn.github.io/flws-page/)
 
 ---
@@ -24,20 +25,13 @@ Flatland is partitioned into three decoupled repositories:
 ```
 flws-page/
 ├── index.html          # Tokyo Night marketing portal & interactive canvas
-├── 404.html            # Custom error handler
+├── 404.html            # Custom error handler & smart router
 ├── .nojekyll           # Bypasses Jekyll processing for GitHub Pages
 ├── assets/
 │   ├── css/style.css   # Modern responsive styles & animations
 │   ├── js/app.js       # Audio synthesis, theme toggle & background canvas
 │   └── images/         # Screenshots, logos, and favicons
-├── wiki/               # Multi-lingual living wiki
-│   ├── index.html      # English Living Wiki
-│   ├── wiki-vi.html    # Vietnamese Living Wiki
-│   └── wiki-fr.html    # French Living Wiki
-├── health/             # Engine health & telemetry status page
-├── docs/               # System laws and specification documents
-├── demo/               # Automatic redirect to flws-web GitHub Pages
-└── openapi.json        # OpenAPI 3.1 REST API specification
+└── README.md           # Project introduction and ecosystem links
 ```
 
 ---
