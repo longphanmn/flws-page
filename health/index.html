@@ -376,7 +376,7 @@
   </div>
   <div class="header-right">
     <button id="btn-refresh" class="btn" title="Refresh now">↻ Refresh</button>
-    <a href="./" class="btn btn-primary" id="link-sim" title="Open Simulation">Open Simulation ↗</a>
+    <a href="https://longphanmn.github.io/flws-web/" target="_blank" rel="noopener noreferrer" class="btn btn-primary" id="link-sim" title="Open Simulation">Open Simulation ↗</a>
     <a href="../" class="btn" id="link-landing" target="_blank" rel="noopener noreferrer" title="Project Landing Page">Landing ↗</a>
   </div>
 </header>
@@ -461,7 +461,7 @@
       Auto-refreshes every 5s ·
       raw API: <a href="/healthz" target="_blank">/healthz</a> ·
       telemetry: <a href="/api/perf/telemetry" target="_blank">/api/perf/telemetry</a> ·
-      docs: <a href="/docs" target="_blank">/docs</a>
+      docs: <a href="../docs/" target="_blank">/docs</a>
     </div>
     <div id="footer-meta">Flatland World Engine</div>
   </footer>
@@ -474,15 +474,13 @@
   "use strict";
 
   try {
-    var p = window.location.pathname;
     var landingLink = document.getElementById("link-landing");
     var simLink = document.getElementById("link-sim");
-    if (p.indexOf("/demo/health") !== -1) {
-      if (landingLink) landingLink.href = "../../";
-      if (simLink) simLink.href = "../";
-    } else if (p.indexOf("/health") !== -1) {
-      if (landingLink) landingLink.href = "../";
-      if (simLink) simLink.href = "../demo/";
+    if (simLink) {
+      simLink.href = "https://longphanmn.github.io/flws-web/";
+    }
+    if (landingLink) {
+      landingLink.href = "../";
     }
   } catch (e) {}
 
@@ -518,7 +516,7 @@
       var teleLink = document.querySelector('a[href*="/api/perf/telemetry"]');
       if (teleLink) teleLink.style.display = "none";
       var docsLink = document.querySelector('a[href*="/docs"]');
-      if (docsLink) docsLink.href = "./docs/";
+      if (docsLink) docsLink.href = "../docs/";
       return;
     }
     var base = API_BASE || "";
