@@ -16,8 +16,7 @@ Flatland is partitioned into three decoupled repositories:
 
 1. **Simulation Engine ([`flws`](https://github.com/longphanmn/flws))**: High-throughput FastAPI simulation kernel, C/OpenMP batch raycaster, immutable laws of nature, SQLite WAL ledger, Textual TUI client, and live WebSocket broadcast.  
    - Repository: [longphanmn/flws](https://github.com/longphanmn/flws)  
-   - Live Backend: [https://world.minhnhan.in](https://world.minhnhan.in)  
-   - Live API Docs: [https://world.minhnhan.in/docs](https://world.minhnhan.in/docs)
+   - API Docs: [https://longphanmn.github.io/flws-web/docs/](https://longphanmn.github.io/flws-web/docs/) (Local: `http://localhost:8000/docs`)
 
 2. **Web Client & Docs Hub ([`flws-web`](https://github.com/longphanmn/flws-web))**: React 18 + TypeScript + Canvas2D/WebGL simulation client with Macro Analytics Observatory. Also hosts the static GitHub Pages documentation mirrors for the entire ecosystem.  
    - Repository: [longphanmn/flws-web](https://github.com/longphanmn/flws-web)  
