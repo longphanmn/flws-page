@@ -42,6 +42,15 @@ flws-page/
 
 ---
 
+## ⚡ Quickstart
+
+Anyone can set up and run the entire Flatland simulation locally with a single terminal command:
+```bash
+curl -fsSL https://raw.githubusercontent.com/longphanmn/flws/main/setup.sh | bash
+```
+
+---
+
 ## 🚀 Deployment
 
 This repository is served statically via GitHub Pages. Any push to `main` or `gh-pages` updates the live site at `https://longphanmn.github.io/flws-page/`.

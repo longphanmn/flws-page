@@ -138,13 +138,13 @@
         The autonomous artificial life ecosystem for the age of agents. Watch geometry live, build, and evolve under immutable natural laws. Developed from Edwin A. Abbott's 1884 classic.
       </p>
 
-      <!-- Quick Clone Terminal Box -->
+      <!-- Quick Setup Terminal Box -->
       <div class="terminal-box" id="hero-cmd">
         <div class="terminal-cmd">
           <span class="terminal-prompt">$</span>
-          <span>git clone https://github.com/longphanmn/flws.git &amp;&amp; cd flws &amp;&amp; ./run.sh</span>
+          <span>curl -fsSL https://raw.githubusercontent.com/longphanmn/flws/main/setup.sh | bash</span>
         </div>
-        <button class="copy-btn" data-copy="git clone https://github.com/longphanmn/flws.git && cd flws && ./run.sh">Copy</button>
+        <button class="copy-btn" data-copy="curl -fsSL https://raw.githubusercontent.com/longphanmn/flws/main/setup.sh | bash">Copy</button>
       </div>
 
       <!-- Hero Viewport Frame: Live Simulation Screenshot -->
@@ -601,17 +601,30 @@
       </div>
 
       <div class="quickstart-grid">
+        <!-- One-Command Setup (Featured) -->
+        <div class="code-window" style="grid-column: 1 / -1; border-color: rgba(94, 189, 255, 0.45); background: linear-gradient(180deg, rgba(94, 189, 255, 0.05) 0%, var(--bg-subtle) 100%);">
+          <div class="code-window-bar" style="background: rgba(94, 189, 255, 0.1);">
+            <span style="color: #5ebdff; font-weight: 600;">⚡ One-Command Automatic Setup &amp; Launch (Recommended)</span>
+            <button class="copy-btn" data-copy="curl -fsSL https://raw.githubusercontent.com/longphanmn/flws/main/setup.sh | bash">Copy</button>
+          </div>
+          <div class="code-body">
+            <span class="cmt"># Automatically clones backend &amp; frontend, configures .env, installs dependencies &amp; boots simulation</span><br>
+            <span class="cmd">curl</span> -fsSL https://raw.githubusercontent.com/longphanmn/flws/main/setup.sh | <span class="cmd">bash</span><br><br>
+            <span class="hl">&gt;&gt; Ready at http://localhost:5173 (Web UI) · http://localhost:8000 (Backend API &amp; Living Wiki)</span>
+          </div>
+        </div>
+
         <!-- Native Run -->
         <div class="code-window">
           <div class="code-window-bar">
-            <span>Local Shell (Linux / macOS / Windows WSL)</span>
+            <span>Manual Clone &amp; Run (Linux / macOS)</span>
             <button class="copy-btn" data-copy="git clone https://github.com/longphanmn/flws.git&#10;cd flws&#10;./run.sh">Copy</button>
           </div>
           <div class="code-body">
-            <span class="cmt"># Clone the open source repository</span><br>
+            <span class="cmt"># Clone backend repository</span><br>
             <span class="cmd">git clone</span> https://github.com/longphanmn/flws.git<br>
             <span class="cmd">cd</span> flws<br><br>
-            <span class="cmt"># Boots FastAPI backend &amp; Vite React frontend</span><br>
+            <span class="cmt"># Auto-clones frontend &amp; boots full stack</span><br>
             <span class="cmd">./run.sh</span><br><br>
             <span class="hl">&gt;&gt; Ready at http://localhost:5173</span>
           </div>
@@ -621,13 +634,14 @@
         <div class="code-window">
           <div class="code-window-bar">
             <span>Docker Compose</span>
-            <button class="copy-btn" data-copy="docker compose up -d">Copy</button>
+            <button class="copy-btn" data-copy="cd flws&#10;./run.sh docker">Copy</button>
           </div>
           <div class="code-body">
-            <span class="cmt"># Launch complete containerized stack</span><br>
-            <span class="cmd">docker compose</span> up -d<br><br>
-            <span class="cmt"># Inspect simulation logs</span><br>
-            <span class="cmd">docker compose</span> logs -f backend<br><br>
+            <span class="cmt"># Launch multi-container stack via Docker Compose</span><br>
+            <span class="cmd">cd</span> flws<br>
+            <span class="cmd">./run.sh</span> docker<br><br>
+            <span class="cmt"># Or native compose command</span><br>
+            <span class="cmd">docker compose</span> up --build<br><br>
             <span class="hl">&gt;&gt; WebSockets listening on :8000</span>
           </div>
         </div>
